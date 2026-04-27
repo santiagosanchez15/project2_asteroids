@@ -18,8 +18,9 @@ def main():
 
         screen.fill('black')
         player.draw(screen)
+        player.update(dt)  # dt is passed to update which is the time taken
         pygame.display.flip()
-        dt = clock.tick(60) / 1000
+        dt = clock.tick(60) / 1000 # dt acquaires the value of the time the the clock ticks (screen refreshes)
         
 
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
