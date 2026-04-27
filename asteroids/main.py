@@ -6,6 +6,7 @@ from asteroids_file import Asteroid
 from asteroidfield import AsteroidField
 from logger import * 
 import sys
+from shot import Shot
 
 def main():
     pygame.init()
@@ -19,6 +20,7 @@ def main():
     updatable = pygame.sprite.Group() # create the groups
     drawable = pygame.sprite.Group()
     asteroids = pygame.sprite.Group()
+    shots = pygame.sprite.Group()
     # player.containers(updatable, drawable) # another way to add gorups
 
     # addtion of groups to player object
@@ -26,6 +28,7 @@ def main():
     drawable.add(player)
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = (updatable,)
+    Shot.containers = (shots, drawable, updatable)
 
     asteroid_field = AsteroidField()
 

@@ -22,5 +22,5 @@ class CircleShape(pygame.sprite.Sprite):
         pass
 
     def collides_with(self, other):
-        '''Check if instances collide with eachother'''
-        return self.position.distance_to(other.position) <= (self.radius + other.radius)
+        '''Check if instances collide with eachother returns true if collsion false if not'''
+        return self.position.distance_to(other.position) <= (self.radius + other.radius) # check distance in respect of player
