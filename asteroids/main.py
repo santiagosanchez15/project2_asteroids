@@ -2,21 +2,31 @@ import pygame
 from constants import SCREEN_HEIGHT, SCREEN_WIDTH
 from logger import log_state
 from player import *
+from asteroids_file import Asteroid
+from asteroidfield import AsteroidField
 
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     dt = 0
-    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
+    #create objects player and asteroids
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+   
     updatable = pygame.sprite.Group() # create the groups
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
     # player.containers(updatable, drawable) # another way to add gorups
 
     # addtion of groups to player object
     updatable.add(player) 
     drawable.add(player)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = (updatable,)
+
+    asteroid_field = AsteroidField()
+
 
     while True:
         log_state()
