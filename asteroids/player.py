@@ -2,12 +2,15 @@ from circleshape import *
 from constants import PLAYER_RADIUS, LINE_WIDTH, PLAYER_TURN_SPEED, PLAYER_SPEED, PLAYER_SHOOT_SPEED
 from shot import Shot
 
+PLAYER_SHOOT_COOLDOWN_SECONDS = 0.3
+
 class Player(CircleShape):
 
     def __init__(self, x, y):
         super().__init__(x, y, PLAYER_RADIUS)
 
         self.rotation = 0
+        self.cooldown = 0
     
     def triangle(self): 
         '''Declare triangle'''
@@ -28,6 +31,7 @@ class Player(CircleShape):
     def update(self, dt):
         '''Update value posision depending on the key pressed'''
         keys = pygame.key.get_pressed()
+        if self.cooldown > 0: self.cooldown -= dt
 
         if keys[pygame.K_a]: # when the key a is pressed the dt is passed as a negative value becasue we want to turn left
             self.rotate( -dt)
@@ -38,7 +42,10 @@ class Player(CircleShape):
         if keys[pygame.K_s]:
             self.move(-dt)
         if keys[pygame.K_SPACE]:
-            self.shoot()
+            if self.cooldown <= 0: 
+                self.cooldown = PLAYER_SHOOT_COOLDOWN_SECONDS
+                self.shoot()
+            
     
     def move(self, dt):
         '''modifies players position'''
