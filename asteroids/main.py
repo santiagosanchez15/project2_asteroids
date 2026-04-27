@@ -10,6 +10,14 @@ def main():
     dt = 0
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
+    updatable = pygame.sprite.Group() # create the groups
+    drawable = pygame.sprite.Group()
+    # player.containers(updatable, drawable) # another way to add gorups
+
+    # addtion of groups to player object
+    updatable.add(player) 
+    drawable.add(player)
+
     while True:
         log_state()
         for event in pygame.event.get():
@@ -17,8 +25,17 @@ def main():
                 return
 
         screen.fill('black')
-        player.draw(screen)
-        player.update(dt)  # dt is passed to update which is the time taken
+
+        #inclusing of movement with groups
+        updatable.update(dt)
+        for line in drawable:
+            line.draw(screen)
+
+        #previous inclusion of movement without groups
+        # player.draw(screen)
+        # player.update(dt)  # dt is passed to update which is the time taken
+
+
         pygame.display.flip()
         dt = clock.tick(60) / 1000 # dt acquaires the value of the time the the clock ticks (screen refreshes)
         
