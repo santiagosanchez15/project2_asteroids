@@ -4,6 +4,8 @@ from logger import log_state
 from player import *
 from asteroids_file import Asteroid
 from asteroidfield import AsteroidField
+from logger import * 
+import sys
 
 def main():
     pygame.init()
@@ -38,6 +40,13 @@ def main():
 
         #inclusing of movement with groups
         updatable.update(dt)
+
+        for asteroid in asteroids:
+            if asteroid.collides_with(player):
+                log_event("player_hit")
+                print("GAME OVER")
+                sys.exit()
+
         for line in drawable:
             line.draw(screen)
 
